@@ -233,7 +233,7 @@ def findBetterSubset(sack: Sack, collection: Collection, opt) -> Union[Sack, Col
     name = str(os.getpid())
 
     number_of_getting_images1 = 11
-    number_of_getting_images2 = 7
+    number_of_getting_images2 = 3#7
 
     it_range = opt.iter
     said_about_error_once = False
@@ -275,12 +275,12 @@ def findBetterSubset(sack: Sack, collection: Collection, opt) -> Union[Sack, Col
                     said_about_error_once = True # to display error info once
                     print("\n" + name + ": diff has exapanded - It shouldn't take place")
                     #TMP
-                    print("DEBUG")
-                    print("before_diff was ", before_diff, "after_diff is", after_diff)
-                    print("needed_vector: ", needed_vector)
-                    print("vector tagen from collection:",Sack(imageDataList2,class_number,capacity).toVector())
-                    sub_sack.findBestFitWithDebug(needed_vector, imageDataList2)
-                    return
+                    # print("DEBUG")
+                    # print("before_diff was ", before_diff, "after_diff is", after_diff)
+                    # print("needed_vector: ", needed_vector)
+                    # print("vector tagen from collection:",Sack(imageDataList2,class_number,capacity).toVector())
+                    # sub_sack.findBestFitWithDebug(needed_vector, imageDataList2)
+                    # return
             collection = old_collection     
         elif not gell_all_made:
             print("\r", name + ": it[",i,"/",it_range,"]" + ": diff = " + str(Sack.diffVectors(collection.toVector(), ideal_vector)), end='')  
@@ -344,8 +344,13 @@ def findBestSubDataset(imageDataList: list, class_number: int, opt) -> Collectio
                 print("Better solution collection.toVector() = " + str(collection.toVector()) + " diff = " + str(Sack.diffVectors(collection.toVector(), ideal_vector)))  
 
 
+
         print("Epoch ", epoch, " ended")
         saveDataset(collection, opt.use_absolute_path, opt.out_file)
+
+        if Sack.diffVectors(collection.toVector(), ideal_vector) == 0:
+            print("Search dataset success!!!")
+            break
 
 
     return collection
